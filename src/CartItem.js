@@ -31,12 +31,20 @@ class CartItem extends React.Component{
             }
         })
     }
+    decreaseQuantity = () => {
+        if(this.state.qty===0){return} // return if the quantity is zero
+        this.setState((prevState)=>{// this form is used if we require previous state
+            return {
+                qty:prevState.qty-1
+            }
+        })
+    }
     render(){
         const {price,title,qty}=this.state;
         return (
             <div className="cart-item">
                 <div className="left-block">
-                    <img style={styles.image} alt="item"></img>
+                    <img style={styles.image} ></img>
                 </div>
                 <div className="right-block">
                     <div style={{fontSize:20}}>{title}</div>
@@ -44,7 +52,7 @@ class CartItem extends React.Component{
                     <div style={{color:'blue'}}>Qty : {qty} </div>
                     <div className="cart-item-actions">
                         <img alt="increase" onClick={this.increaseQuantity} className="action-icons" src="https://image.flaticon.com/icons/svg/992/992651.svg" />
-                        <img alt="decrease" className="action-icons" src="https://image.flaticon.com/icons/svg/1665/1665612.svg" />
+                        <img alt="decrease" onClick={this.decreaseQuantity} className="action-icons" src="https://image.flaticon.com/icons/svg/1665/1665612.svg" />
                         <img alt="delete" className="action-icons" src="https://image.flaticon.com/icons/svg/1214/1214428.svg" />
                     </div>
                 </div>
@@ -55,8 +63,8 @@ class CartItem extends React.Component{
 
 const styles={
     image:{
-        width:100,
-        height:100,
+        width:140,
+        height:140,
         borderRadius:10,
         background:'#777'
     }
