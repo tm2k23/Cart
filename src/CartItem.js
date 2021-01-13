@@ -13,7 +13,23 @@ class CartItem extends React.Component{
     increaseQuantity = () => {
         // have used arrow function to bind the object 
         // try it without arrow function, we will get "this" as undefined
-        console.log(this);
+        // console.log(this);
+
+        // this.state.qty+=1; this will not work, because react will not render the change since it does not know that state is updated
+
+        // we can change the state in 2 ways 
+
+        // setState() 1st Form
+        // this.setState({ // this form is used if we do not require previous state
+        //     qty:this.state.qty + 1 
+        // })
+
+        // setState 2nd form
+        this.setState((prevState)=>{// this form is used if we require previous state
+            return {
+                qty:prevState.qty+1
+            }
+        })
     }
     render(){
         const {price,title,qty}=this.state;
