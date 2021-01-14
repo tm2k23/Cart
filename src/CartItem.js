@@ -1,15 +1,7 @@
 import React from 'react';
 class CartItem extends React.Component{
     // define constructor to create state
-    constructor(){
-        super(); // to call the constructor of base class
-        this.state={
-            price:999,
-            title:"phone",
-            qty:1,
-            img:""
-        }
-    }
+    
     increaseQuantity = () => {
         // have used arrow function to bind the object 
         // try it without arrow function, we will get "this" as undefined
@@ -40,7 +32,7 @@ class CartItem extends React.Component{
         })
     }
     render(){
-        const {price,title,qty}=this.state;
+        const {title,price,qty}=this.props.product;
         return (
             <div className="cart-item">
                 <div className="left-block">
