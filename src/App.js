@@ -11,7 +11,7 @@ class App extends React.Component {
         }
     }
 
-    componentDidMount(){
+    /*componentDidMount(){
         firebase
         .firestore()
         .collection('products')
@@ -22,6 +22,23 @@ class App extends React.Component {
             // snapshot.docs.map((doc) => {
             //     console.log(doc.data());
             // });
+            const products=snapshot.docs.map((doc) => {
+                const product=doc.data();
+                product['id']=doc.id;
+                return product;
+            });
+            this.setState({
+                products:products,
+                loading:false
+            })
+        })
+    }*/
+
+    componentDidMount(){
+        firebase
+        .firestore()
+        .collection('products')
+        .onSnapshot((snapshot)=>{
             const products=snapshot.docs.map((doc) => {
                 const product=doc.data();
                 product['id']=doc.id;
