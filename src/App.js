@@ -51,6 +51,21 @@ class App extends React.Component {
         })
     }
 
+    addProduct=()=>{
+        firebase
+        .firestore()
+        .collection('products')
+        .add({
+            title:"Washing Machine",
+            qty:3,
+            price:9000,
+            img:""
+        })
+        .then((docRef)=>{
+            console.log(docRef);
+        })
+    }
+
     handleIncreaseQuantity=(product)=>{
         const products = this.state.products;
         let productIndex = products.indexOf(product);
@@ -96,6 +111,7 @@ class App extends React.Component {
         return ( 
             <div className = "App">
                 <Navbar count={this.getCartCount()}/>
+                <button onClick={()=>{this.addProduct()}}>Add Product</button>
                 <Cart
                 products={this.state.products} 
                 onIncreaseQuantity={this.handleIncreaseQuantity}
