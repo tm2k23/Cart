@@ -1,35 +1,35 @@
 import Cart from './Cart';
 import Navbar from './Navbar';
 import React from 'react';
+import firebase from 'firebase/app';
 class App extends React.Component {
     constructor(){
         super(); // to call the constructor of base class
         this.state={
-            products:[
-                {
-                    title:'Mobile',
-                    price:1099,
-                    qty:10,
-                    img:'',
-                    id:1
-                },
-                {
-                    title:'Watch',
-                    price:199,
-                    qty:5,
-                    img:'',
-                    id:2
-                },
-                {
-                    title:'Laptop',
-                    price:19999,
-                    qty:9,
-                    img:'',
-                    id:3
-                }
-            ]
+            products:[]
         }
     }
+
+    componentDidMount(){
+        firebase
+        .firestore()
+        .collection('products')
+        .get()
+        .then((snapshot)=>{
+            // console.log('snapshot',snapshot);
+            // console.log('snapshot.docs',snapshot.docs);
+            // snapshot.docs.map((doc) => {
+            //     console.log(doc.data());
+            // });
+            const products=snapshot.docs.map((doc) => {
+                return doc.data();
+            });
+            this.setState({
+                products:products
+            })
+        })
+    }
+
     handleIncreaseQuantity=(product)=>{
         const products = this.state.products;
         let productIndex = products.indexOf(product);
