@@ -110,12 +110,21 @@ class App extends React.Component {
         }
     }
     handleDeleteProduct=(id)=>{
-        const products = this.state.products;
+        // const products = this.state.products;
         // console.log(products);
-        const items = products.filter((item)=>item.id !== id);
-        // console.log(items);
-        this.setState({
-            products:items
+        // const items = products.filter((item)=>item.id !== id);
+        // // console.log(items);
+        // this.setState({
+        //     products:items
+        // })
+        const docRef=firebase.firestore().collection('products').doc(id);
+        docRef
+        .delete()
+        .then(()=>{
+            console.log('Product deleted successfully');
+        })
+        .catch((error)=>{
+            console.error(error);
         })
     }
     getCartCount=()=>{
