@@ -6,7 +6,8 @@ class App extends React.Component {
     constructor(){
         super(); // to call the constructor of base class
         this.state={
-            products:[]
+            products:[],
+            loading:true
         }
     }
 
@@ -27,7 +28,8 @@ class App extends React.Component {
                 return product;
             });
             this.setState({
-                products:products
+                products:products,
+                loading:false
             })
         })
     }
@@ -83,6 +85,7 @@ class App extends React.Component {
                 onDecreaseQuantity={this.handleDecreaseQuantity}
                 onDeleteProduct={this.handleDeleteProduct} 
                 />
+                {this.state.loading && <h1>Loading Products...</h1>}
                 <h2 style={{padding:5,margin:0}}>Total : {this.getCartTotal()}</h2>
             </div >
         );
