@@ -88,12 +88,26 @@ class App extends React.Component {
     handleDecreaseQuantity=(product)=>{
         const products = this.state.products;
         let productIndex = products.indexOf(product);
-        if(products[productIndex].qty===0)
-            return ;
-        products[productIndex].qty-=1;
-        this.setState({
-            products:products
-        })
+        // if(products[productIndex].qty===0)
+        //     return ;
+        // products[productIndex].qty-=1;
+        // this.setState({
+        //     products:products
+        // })
+        if(products[productIndex].qty > 0)
+        {
+            const docRef=firebase.firestore().collection('products').doc(products[productIndex].id);
+            docRef
+            .update({
+                qty:products[productIndex].qty-1
+            })
+            .then(()=>{
+                console.log('quantity decreased successfully');
+            })
+            .catch((error)=>{
+                console.error(error);
+            })
+        }
     }
     handleDeleteProduct=(id)=>{
         const products = this.state.products;
